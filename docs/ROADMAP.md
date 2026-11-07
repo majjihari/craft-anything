@@ -705,7 +705,12 @@ Owner: open · Status: in progress
       default once that passes
 - [x] Aider has no adapter, so the plain one hands it the prompt as a file name, and it can open a
       browser sign-in nobody agreed to (#72). Give it an adapter, or stop offering it — claimed: Afloat16, branch bugfix/r2.2-aider-recommendations-20261103
-- [ ] Add a non-interactive Aider adapter before recommending it again; detection currently leaves it out.
+- [x] Add a non-interactive Aider adapter before recommending it again; detection currently leaves it out.
+      Aider gets the message with `--message`, and flags that stop it asking, updating, editing
+      `.gitignore` or opening a page; a chat outside a build also gets `--dry-run`. Before a run it
+      refuses when no model or key is set up, or an OpenRouter model has no OpenRouter key: both
+      would offer a sign-in and wait for a browser nobody is at (#72).
+      — claimed: hasnain607, branch feature/r2.2-aider-adapter
 - [ ] Codex (#499): in a chat the tool server has no active target. The reporter attached a patch
       for chat continuity; look at that first
 - [x] Codex (#538): list every permitted tool from startup, since Codex doesn't refresh its callable
@@ -715,6 +720,7 @@ Owner: open · Status: in progress
       code) and a refusal explains the fix (`docs/codex.md`)
 - [ ] Codex (#540): run `codex exec` on a real install and check `rebuild_start` gets through
 - [ ] Codex: resume support (`codex exec resume <id>`), verified on a real install
+- [ ] Aider: move the message to `--message-file` once the launcher can write one (see the argv item above), and read project-folder `.aider.conf.yml` and `.env` in `check_setup`, which needs the working directory passed into `check_native_options`.
 - [ ] Every adapter but Claude Code's still takes the message in argv (`prompt_on_stdin`), so a long
       one can pass Windows' command-line limit as Claude Code's did (#402); hand each its message on
       stdin or in a file where its CLI reads one
